@@ -10,14 +10,24 @@ namespace BusinessLogicLayer.Services
 {
     public class PendingBookingState : IBookingState
     {
+        private readonly INotificationService _notificationService;
+        public PendingBookingState(INotificationService notificationService)
+        {
+            _notificationService = notificationService;
+        }
+
         public void Cancel(Booking booking)
         {
-            throw new NotImplementedException();
+            booking.Status = BookingStatus.Cancelled;
+            _notificationService.Send(booking.Guest.Email, $"Бронювання{booking.Room.Number}", $"Заїзд  {booking.CheckInDate.ToShortDateString()} скасоано");
+
         }
 
         public void Confirm(Booking booking)
         {
-            throw new NotImplementedException();
+            booking.Status = BookingStatus.Confirmed;
+            _notificationService.Send(booking.Guest.Email, $"Бронювання{booking.Room.Number}", $"Заїзд  {booking.CheckInDate.ToShortDateString()} пітверджено");
+            
         }
     }
 }
