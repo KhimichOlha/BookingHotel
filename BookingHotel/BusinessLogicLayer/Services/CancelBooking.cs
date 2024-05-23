@@ -22,6 +22,7 @@ namespace BusinessLogicLayer.Services
         public void Execute(Booking booking)
         {
 
+
             if (booking != null)
             {
                 _state.Cancel(booking);
