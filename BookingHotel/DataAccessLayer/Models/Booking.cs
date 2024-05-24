@@ -15,6 +15,8 @@ namespace DataAccessLayer.Models
         public DateTime CheckOutDate { get; set;}
         public BookingStatus Status { get; set; }
         public PaymentMethod PaymentMethod { get; set; }
+        
+        
 
     }
 }
