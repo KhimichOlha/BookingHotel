@@ -16,6 +16,6 @@ namespace DataAccessLayer.Models
         public decimal Price { get; set; }
         public List<Amenity> Amenities { get; set; }
         public bool IsAvailable { get; set; }
-
+        public List<Booking> Bookings { get; set; }
     }
 }
