@@ -5,15 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccessLayer.Repositories.Interfases
+namespace BusinessLogicLayer.Interfaces
 {
-    public interface IGuestRepository
+    public interface IGuestService
     {
         Guest GetById(int id);
         void Add(Guest guest);
         void Update(Guest guest);
         IEnumerable<Guest> GetAll();
-       
-
+        IEnumerable<Booking> GetBookingsForGuest(int id);
+        IEnumerable<Guest> SearchGuests(string searchTerm);
     }
 }
