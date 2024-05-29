@@ -1,3 +1,4 @@
+using DependencyInjectionContainer;
 namespace PresentationLayer
 {
     public class Program
@@ -8,6 +9,7 @@ namespace PresentationLayer
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddHotelBookingServices(builder.Configuration);
 
             var app = builder.Build();
 

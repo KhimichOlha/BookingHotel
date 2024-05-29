@@ -6,4 +6,17 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DependencyInjectionContainer\DependencyInjectionContainer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Booking\" />
+    <Folder Include="Views\Guest\" />
+    <Folder Include="Views\Hotel\" />
+    <Folder Include="Views\Account\" />
+    <Folder Include="Views\Admin\" />
+    <Folder Include="Views\Room\" />
+  </ItemGroup>
+
 </Project>
