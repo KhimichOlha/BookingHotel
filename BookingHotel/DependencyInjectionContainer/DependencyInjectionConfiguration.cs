@@ -24,7 +24,10 @@ namespace DependencyInjectionContainer
             services.AddScoped<IRoomService, RoomService>();
             services.AddScoped<INotificationService, EmailNotificationService>();
             services.AddScoped<IPricing, StandardPrice>();
+            services.AddScoped<IBookingState, PendingBookingState>();
             
+
+
             return services;
 
         }

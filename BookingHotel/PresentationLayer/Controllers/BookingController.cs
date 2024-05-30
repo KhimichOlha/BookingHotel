@@ -1,4 +1,5 @@
-﻿using BusinessLogicLayer.Interfaces;
+﻿using AutoMapper;
+using BusinessLogicLayer.Interfaces;
 using BusinessLogicLayer.Services;
 using DataAccessLayer.Models;
 using DataAccessLayer.Repositories.Interfases;
@@ -17,11 +18,12 @@ namespace PresentationLayer.Controllers
         private readonly IPricing _pricing;
         private readonly INotificationService _notificationService;
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly MapModelToViewModel _map;
+        private readonly IMapper _map;
+        private readonly IBookingState _state;
        
         public BookingController(IBookingRepository bookingRepository, IGuestService guestService,
-            IRoomService roomService, IPricing pricing, 
-            INotificationService notificationService, UserManager<IdentityUser> userManager, MapModelToViewModel map )
+            IRoomService roomService, IPricing pricing, IBookingState state,
+            INotificationService notificationService, UserManager<IdentityUser> userManager, IMapper map )
         {
             _bookingRepository = bookingRepository;
             _roomService = roomService;
@@ -30,6 +32,7 @@ namespace PresentationLayer.Controllers
             _notificationService = notificationService;
             _userManager = userManager;
             _map = map;
+            _state = state;
         }
 
         public async Task< IActionResult> Index()
@@ -51,7 +54,7 @@ namespace PresentationLayer.Controllers
                 var viewBookings = new List<BookingViewModel>();
                 foreach(var booking in bookings)
                 {
-                    viewBookings.Add(_map.BookingToViewModel(booking));
+                    viewBookings.Add(_map.Map<BookingViewModel>(booking));
 
                 }
                 return View(viewBookings);
@@ -66,7 +69,7 @@ namespace PresentationLayer.Controllers
             {
                 return NotFound();
             }
-            var bookingViewModel = _map.BookingToViewModel(booking);
+            var bookingViewModel = _map.Map<BookingViewModel>(booking);
             return View(booking);
           
         }
@@ -86,7 +89,8 @@ namespace PresentationLayer.Controllers
             {
                 var guest = _guestService.GetById(viewModel.Guest.Id);
                 var room = _roomService.GetRoomById(viewModel.Room.Id);
-                var command = new CreateBooking (_bookingRepository, _ )
+                var command = new CreateBooking(_bookingRepository, _state, _pricing);
+                command.Execute(_map.Map<Booking>(viewModel));
             }
         }
         

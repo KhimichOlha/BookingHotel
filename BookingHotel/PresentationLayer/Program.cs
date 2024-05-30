@@ -10,8 +10,9 @@ namespace PresentationLayer
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-            builder.Services.AddScoped<MapModelToViewModel>();
+            //builder.Services.AddScoped<MapModelToViewModel>();
             builder.Services.AddHotelBookingServices(builder.Configuration);
+            builder.Services.AddAutoMapper(typeof(Program));
 
             var app = builder.Build();
 
