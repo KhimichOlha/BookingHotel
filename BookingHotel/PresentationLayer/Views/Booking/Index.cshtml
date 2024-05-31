@@ -1,0 +1,58 @@
+﻿@model IEnumerable<BookingViewModel>
+@{
+	ViewData["Title"] = "Бронювання";
+	var isAdmin = User.IsInRole("Admin");
+}
+<h1>Бронювання</h1>
+@if (Model.Any())
+{
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Номер</th>
+				<th>Гість</th>
+				<th>Заїзд</th>
+				<th>Виїзд</th>
+				<th>Ціна</th>
+				<th>Статус</th>
+				@if(isAdmin)
+				{
+					<th>Дії</th>
+				}
+			</tr>
+		</thead>
+		<tbody>
+			@foreach(var booking in Model)
+			{
+				<tr>
+					<td>@booking.Room.Number</td>
+					<td>@booking.Guest.Name</td>
+					<td>@booking.CheckInDate.ToShortDateString()</td>
+					<td>@booking.CheckOutDate.ToShortTimeString()</td>
+					<td>@booking.Room.Price</td>
+					<td>@booking.Status</td>
+
+				
+				@if (isAdmin)
+				{
+					<td>
+						<a asp-action="Details" asp-route-id="@booking.Id">Деталі</a> |
+					<a asp-action="Edit" asp-route-id="@booking.Id">Редагувати</a> |
+					<a asp-action="Cancel" asp-route-id="@booking.Id">Скасувати</a>
+				</td>
+				}
+				</tr>
+			}
+		</tbody>
+	</table>
+}else
+	{
+		<p>У Вас не має бронюваня</p>
+
+	}
+@if (!isAdmin)
+{
+	<a asp-action="Create" class="btn btn-primary">Створити бронювання</a>
+}
+
+

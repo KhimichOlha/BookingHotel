@@ -25,7 +25,7 @@ namespace DataAccessLayer.Repositories.Servises
 
         public IEnumerable<Booking> GetByGuestId(int guestId)
         {
-            return _context.Bookings.Where( b => b.GuestId == guestId).ToList();
+            return _context.Bookings.Where( b => b.Guest.Id == guestId).ToList();
         }
 
         

@@ -91,9 +91,39 @@ namespace PresentationLayer.Controllers
                 var room = _roomService.GetRoomById(viewModel.Room.Id);
                 var command = new CreateBooking(_bookingRepository, _state, _pricing);
                 command.Execute(_map.Map<Booking>(viewModel));
+                return RedirectToAction("Details", viewModel.Id);
             }
+            return View(viewModel);
+
         }
-        
+        [HttpPost]
+        public IActionResult Confirm(int id)
+        {
+            var booking = _bookingRepository.GetById(id);
+            if (booking == null)
+            {
+                return NotFound();
+
+            }
+            var command = new ConfirmBooking(_bookingRepository, _state);
+            command.Execute(booking);
+            return RedirectToAction("Index");
+        }
+        [HttpPost]
+        public IActionResult Cancel(int id)
+        {
+            var booking = _bookingRepository.GetById(id);
+            if (booking == null)
+            {
+                return NotFound();
+
+            }
+            var command = new CancelBooking(_bookingRepository, _state);
+            command.Execute(booking);
+            return RedirectToAction("Index");
+
+        }
+
     }
 
 }
