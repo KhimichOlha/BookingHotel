@@ -93,14 +93,27 @@ namespace PresentationLayer.Controllers
             }
             return View(search);
         }
-        public IActionResult Create(SearchViewModel search)
+        public async Task<IActionResult> CreateAsync(int roomId)
         {
-            var availableRooms = _roomService.GetAvailableRoomss(search.CheckInDate, search.CheckOutDate, search.GuestCount);
-            if(availableRooms == null) 
+            var room = _roomService.GetRoomById(roomId);
+            if(room == null||! room.IsAvailable)
             {
                 return NotFound();
             }
-            return View(availableRooms);
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            var guest = _guestService.GetByUserId(user.Id);
+            if (guest == null)
+            {
+                return NotFound();
+            }
+            var booking = new BookingViewModel();
+            booking.Guest = _map.Map<GuestViewModel>(guest);
+            booking.Room = _map.Map<RoomViewModel>(room);
+            return View(booking);
         }
         [HttpPost]
         public IActionResult Create(BookingViewModel viewModel)

@@ -13,6 +13,7 @@ namespace DataAccessLayer.Models
         public string Email { get; set; }
         public string  Phone {  get; set; }
         public int LoyaltyPoints {  get; set; }
+        public string UserId { get; set; }
 
     }
 }

@@ -39,6 +39,11 @@ namespace BusinessLogicLayer.Services
             return _guestRepository.GetById(id);
         }
 
+        public Guest GetByUserId(string id)
+        {
+            return _guestRepository.GetAll().FirstOrDefault(g=>g.UserId==id);
+        }
+
         public IEnumerable<Guest> SearchGuests(string searchTerm)
         {
             return _guestRepository.GetAll().Where(g =>  g.Name.Contains(searchTerm) || g.Email.Contains(searchTerm));

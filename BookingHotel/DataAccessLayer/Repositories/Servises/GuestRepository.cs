@@ -26,7 +26,7 @@ namespace DataAccessLayer.Repositories.Servises
 
 		public IEnumerable<Guest> GetAll()
 		{
-			throw new NotImplementedException();
+			return _context.Guests;
 		}
 
 		public Guest GetById(int id)
