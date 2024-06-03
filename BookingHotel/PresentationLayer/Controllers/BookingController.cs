@@ -70,8 +70,28 @@ namespace PresentationLayer.Controllers
                 return NotFound();
             }
             var bookingViewModel = _map.Map<BookingViewModel>(booking);
-            return View(booking);
+            return View(bookingViewModel);
           
+        }
+        public IActionResult Search()
+        {
+            var viewModel = new SearchViewModel
+            {
+                CheckInDate = DateTime.Today,
+                CheckOutDate = DateTime.Today.AddDays(1),
+                GuestCount = 1
+            };
+            return View(viewModel);
+        }
+        [HttpPost]
+        public IActionResult Search(SearchViewModel search)
+        {
+            if (ModelState.IsValid)
+            {
+                var availableRooms = _roomService.GetAvailableRoomss(search.CheckInDate, search.CheckOutDate, search.GuestCount);
+                return View("SearchResults", availableRooms);
+            }
+            return View(search);
         }
         public IActionResult Create(SearchViewModel search)
         {

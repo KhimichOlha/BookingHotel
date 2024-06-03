@@ -1,0 +1,38 @@
+﻿@model IEnumerable<RoomViewModel>
+@{
+    ViewData["Title"] = "Результати пошуку";
+}
+<h2>Результати пошуку</h2>
+
+@if (Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Номер</th>
+                <th>Тип</th>
+                <th>Місткість</th>
+                <th>Ціна</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var room in Model)
+            {
+                <tr>
+                    <td>@room.Number</td>
+                    <td>@room.Type</td>
+                    <td>@room.Capacity</td>
+                    <td>@room.Price</td>
+                    <td>
+                        <a asp-action="Create" asp-route-roomId="@room.Id" class="btn btn-primary">Забронювати</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>На жаль, на вибрані дати немає доступних номерів.</p>
+}
