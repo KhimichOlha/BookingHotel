@@ -81,7 +81,7 @@ namespace PresentationLayer.Controllers
             var bookingModels = new List<BookingViewModel>();
             foreach (var booking in bookings)
             {
-                bookingModels.Add(_map.Map<BookingViewModel>(booking);
+                bookingModels.Add(_map.Map<BookingViewModel>(booking));
             }
             return View(bookingModels);
         }

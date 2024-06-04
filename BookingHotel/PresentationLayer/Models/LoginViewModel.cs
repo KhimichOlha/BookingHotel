@@ -18,4 +18,4 @@ namespace PresentationLayer.Models
         public bool RememberMe { get; set; }
     }
 }
-}
+
