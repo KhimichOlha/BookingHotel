@@ -1,4 +1,5 @@
-﻿@model IEnumerable<BookingViewModel>
+﻿@using DataAccessLayer.Models
+@model IEnumerable<BookingViewModel>
 
 @{
     ViewData["Title"] = "Історія бронювань";
@@ -13,8 +14,8 @@
             <thead>
                 <tr>
                     <th>Номер бронювання</th>
-                    <th>Готель</th>
                     <th>Номер</th>
+                    <th>Тип номеру</th>
                     <th>Дата заїзду</th>
                     <th>Дата виїзду</th>
                     <th>Ціна</th>
@@ -27,11 +28,11 @@
                 {
                     <tr>
                         <td>@booking.Id</td>
-                        <td>@booking.Room.Hotel.Name</td>
-                        <td>@booking.Room.Number (@booking.Room.Type)</td>
+                        <td>@booking.Room.Number</td>
+                        <td>@booking.Room.RoomType </td>
                         <td>@booking.CheckInDate.ToShortDateString()</td>
                         <td>@booking.CheckOutDate.ToShortDateString()</td>
-                        <td>@booking.Price</td>
+                        <td>@booking.Room.Price</td>
                         <td>@booking.Status</td>
                         <td>
                             <a asp-action="Details" asp-route-id="@booking.Id" class="btn btn-secondary">Деталі</a>

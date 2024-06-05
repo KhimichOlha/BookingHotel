@@ -43,8 +43,13 @@ namespace PresentationLayer.Controllers
                 return RedirectToAction("Login", "Account");
             }
             
-            var guestId = int.Parse( user.Id);
-            var bookings = _bookingRepository.GetByGuestId(guestId);
+            var guest = _guestService.GetByUserId(user.Id);
+            if(guest == null)
+            {
+                return NotFound();
+            }
+            var bookings = _bookingRepository.GetByGuestId(guest.Id);
+
             if(bookings == null)
             {
                 return NotFound();
@@ -89,11 +94,17 @@ namespace PresentationLayer.Controllers
             if (ModelState.IsValid)
             {
                 var availableRooms = _roomService.GetAvailableRoomss(search.CheckInDate, search.CheckOutDate, search.GuestCount);
-                return View("SearchResults", availableRooms);
+                var viewRooms = new List<RoomViewModel>();
+                foreach(var room in availableRooms)
+                {
+					viewRooms.Add(_map.Map<RoomViewModel>(room));
+
+				}
+                return View("SearchResults", viewRooms);
             }
             return View(search);
         }
-        public async Task<IActionResult> CreateAsync(int roomId)
+        public async Task<IActionResult> Create(int roomId)
         {
             var room = _roomService.GetRoomById(roomId);
             if(room == null||! room.IsAvailable)
@@ -118,7 +129,7 @@ namespace PresentationLayer.Controllers
         [HttpPost]
         public IActionResult Create(BookingViewModel viewModel)
         {
-            if (ModelState.IsValid)
+            if (true)
             {
                 var guest = _guestService.GetById(viewModel.Guest.Id);
                 var room = _roomService.GetRoomById(viewModel.Room.Id);
