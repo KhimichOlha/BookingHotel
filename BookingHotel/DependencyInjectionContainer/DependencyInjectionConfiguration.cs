@@ -25,7 +25,9 @@ namespace DependencyInjectionContainer
             services.AddScoped<INotificationService, EmailNotificationService>();
             services.AddScoped<IPricing, StandardPrice>();
             services.AddScoped<IBookingState, PendingBookingState>();
-            
+            services.AddScoped<IAmenitieRepository, AmenitieRepository>();
+
+
 
 
             return services;

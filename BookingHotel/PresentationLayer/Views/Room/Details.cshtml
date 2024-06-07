@@ -1,0 +1,52 @@
+﻿@model RoomViewModel
+
+@{
+    ViewData["Title"] = "Деталі кімнати";
+}
+
+<div class="container">
+    <h1>Деталі кімнати</h1>
+
+    <div class="mt-3">
+        <dl class="row">
+            <dt class="col-sm-2">Номер:</dt>
+            <dd class="col-sm-10">@Model.Number</dd>
+
+            <dt class="col-sm-2">Тип:</dt>
+            <dd class="col-sm-10">@Model.RoomType</dd>
+
+            <dt class="col-sm-2">Місткість:</dt>
+            <dd class="col-sm-10">@Model.Capacity</dd>
+
+            <dt class="col-sm-2">Ціна за ніч:</dt>
+            <dd class="col-sm-10">@Model.Price.ToString("C")</dd>
+
+            <dt class="col-sm-2">Зручності:</dt>
+            <dd class="col-sm-10">
+                @if (Model.AmentyViewModels.Any() && Model.AmentyViewModels != null)
+                {
+                    <ul>
+                        @foreach (var amenity in Model.AmentyViewModels)
+                        {
+                            <li>@amenity.Name</li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <span>Немає зручностей</span>
+                }
+            </dd>
+     
+        </dl>
+    </div>
+
+    <div class="mt-3">
+        @if (User.IsInRole("Admin")) // Посилання на редагування та видалення тільки для адміністратора
+        {
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Редагувати</a>
+            <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Видалити</a>
+        }
+        <a asp-action="Index" class="btn btn-secondary">Повернутися до списку кімнат</a>
+    </div>
+</div>

@@ -13,6 +13,7 @@ namespace DataAccessLayer.Repositories.Interfases
         Room GetById(int id);
         void Update(Room room);
         IEnumerable<Room> GetAll();
+        void Add(Room room);
     }
     
 }

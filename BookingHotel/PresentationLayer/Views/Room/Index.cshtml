@@ -28,9 +28,13 @@
                     <td>@room.Capacity</td>
                     <td>@room.Price</td>
                     <td>
-                        @foreach (var amenity in room.AmentyViewModels)
+                        @if (room.AmentyViewModels != null)
                         {
-                            <span>@amenity.Name</span>
+                        
+                             @foreach (var amenity in room.AmentyViewModels)
+                             {
+                                  <span>@amenity.Name</span>
+                             }
                         }
                     </td>
                     

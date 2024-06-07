@@ -17,6 +17,11 @@ namespace BusinessLogicLayer.Services
             _roomRepository = roomRepository;
         }
 
+        public void Add(Room room)
+        {
+            _roomRepository.Add(room);
+        }
+
         public IEnumerable<Room> GetAll()
         {
             return _roomRepository.GetAll();
@@ -37,5 +42,6 @@ namespace BusinessLogicLayer.Services
         {
             _roomRepository.Update(room);
         }
+        
     }
 }

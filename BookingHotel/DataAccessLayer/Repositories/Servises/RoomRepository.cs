@@ -17,9 +17,18 @@ namespace DataAccessLayer.Repositories.Servises
             _context = context;
         }
 
+        public void Add(Room room)
+        {
+            // Заглушка требе зміти коли буде реалізовано додавання готелів
+            room.HotelId = 1;
+            _context.Rooms.Add(room);
+            _context.SaveChanges();
+        }
+
         public IEnumerable<Room> GetAll()
         {
-            return _context.Rooms.ToList();
+            return _context.Rooms.Include(r => r.Amenities).ToList();
+            
         }
 
         public IEnumerable<Room> GetAvailableRooms(DateTime checkInDate, DateTime checkOutDate, int guestCount)

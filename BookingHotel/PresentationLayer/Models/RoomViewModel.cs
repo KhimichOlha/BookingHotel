@@ -9,6 +9,6 @@ namespace PresentationLayer.Models
         public RoomType RoomType { get; set; }
         public int Capacity { get; set; }
         public decimal Price { get; set; }
-        public List<AmentyViewModel> AmentyViewModels { get; set; }
+        public List<AmentyViewModel>? AmentyViewModels { get; set; }
     }
 }
