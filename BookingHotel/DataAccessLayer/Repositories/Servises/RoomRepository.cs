@@ -17,6 +17,11 @@ namespace DataAccessLayer.Repositories.Servises
             _context = context;
         }
 
+        public IEnumerable<Room> GetAll()
+        {
+            return _context.Rooms.ToList();
+        }
+
         public IEnumerable<Room> GetAvailableRooms(DateTime checkInDate, DateTime checkOutDate, int guestCount)
         {
             return _context.Rooms

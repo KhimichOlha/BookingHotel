@@ -127,17 +127,31 @@ namespace PresentationLayer.Controllers
             return View(booking);
         }
         [HttpPost]
-        public IActionResult Create(BookingViewModel viewModel)
+        public async Task<IActionResult> Create(BookingViewModel viewModel)
         {
-            if (true)
-            {
-                var guest = _guestService.GetById(viewModel.Guest.Id);
+            //if (true)
+            //{
+				var user = await _userManager.GetUserAsync(User);
+				if (user == null)
+				{
+					return RedirectToAction("Login", "Account");
+				}
+				var guest = _guestService.GetByUserId(user.Id);
+				if (guest == null)
+				{
+					return NotFound();
+				}
+				//var guest = _guestService.GetById(viewModel.Guest.Id);
                 var room = _roomService.GetRoomById(viewModel.Room.Id);
+                room.IsAvailable = true;
                 var command = new CreateBooking(_bookingRepository, _state, _pricing);
-                command.Execute(_map.Map<Booking>(viewModel));
-                return RedirectToAction("Details", viewModel.Id);
-            }
-            return View(viewModel);
+                var booking = _map.Map<Booking>(viewModel);
+				booking.Room = room ;
+				booking.Guest = guest;
+				command.Execute(booking);
+				return RedirectToAction("Details", viewModel.Id);
+            //}
+            //return View(viewModel);
 
         }
         [HttpPost]

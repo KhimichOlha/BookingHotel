@@ -8,10 +8,11 @@ namespace PresentationLayer.Mapper
     {
         public MappingProfile() 
         {
-            CreateMap<Booking, BookingViewModel>();
-            CreateMap<Room, RoomViewModel>();
-            CreateMap<Amenity, AmentyViewModel>();
-            CreateMap<Guest, GuestViewModel>();
+            CreateMap<Booking, BookingViewModel>().ReverseMap();
+            CreateMap<Room, RoomViewModel>().ReverseMap();
+            CreateMap<Amenity, AmentyViewModel>().ReverseMap();
+            CreateMap<Guest, GuestViewModel>().ReverseMap();
+            
         }
     }
 }

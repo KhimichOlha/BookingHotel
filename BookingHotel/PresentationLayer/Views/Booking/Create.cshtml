@@ -8,7 +8,7 @@
 
 <form asp-action="Create" method="post">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
+    <input type="hidden" asp-for="Room.Id" />
     <div class="form-group">
         <label asp-for="Guest.Name" class="control-label">Гість:</label>
         <input asp-for="Guest.Name" class="form-control" readonly />

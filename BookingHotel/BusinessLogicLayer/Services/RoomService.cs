@@ -17,6 +17,11 @@ namespace BusinessLogicLayer.Services
             _roomRepository = roomRepository;
         }
 
+        public IEnumerable<Room> GetAll()
+        {
+            return _roomRepository.GetAll();
+        }
+
         public IEnumerable<Room> GetAvailableRoomss(DateTime checkInDate, DateTime checkOutDate, int guestCount)
         {
 

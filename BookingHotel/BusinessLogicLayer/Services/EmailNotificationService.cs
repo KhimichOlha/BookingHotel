@@ -30,7 +30,7 @@ namespace BusinessLogicLayer.Services
                 Body = body
             })
             {
-                smtp.Send(message);
+                //smtp.Send(message);
             }
 
         }

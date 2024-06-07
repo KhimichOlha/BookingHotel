@@ -12,6 +12,7 @@ namespace DataAccessLayer.Repositories.Interfases
         IEnumerable<Room> GetAvailableRooms(DateTime checkInDate, DateTime checkOutDate, int guestCount);
         Room GetById(int id);
         void Update(Room room);
-
+        IEnumerable<Room> GetAll();
     }
+    
 }
