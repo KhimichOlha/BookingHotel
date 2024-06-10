@@ -14,5 +14,6 @@ namespace BusinessLogicLayer.Interfaces
         void UpdateRoom(Room room);
         IEnumerable<Room> GetAll();
         void Add(Room room);
+        double CalculateOccupancyRate(DateTime? date = null);
     }
 }

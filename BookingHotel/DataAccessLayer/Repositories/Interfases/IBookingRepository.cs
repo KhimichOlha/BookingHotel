@@ -13,6 +13,7 @@ namespace DataAccessLayer.Repositories.Interfases
         void Update(Booking booking);
         Booking GetById(int id);
         IEnumerable<Booking> GetByGuestId(int guestId);
+        IEnumerable<Booking> GetAll();
         
     }
 }

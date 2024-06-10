@@ -100,15 +100,14 @@ namespace PresentationLayer.Controllers
                 return NotFound();
             }
 
-            var viewModel = new RoomViewModel
+            var viewModel = new CreateRoomViewModel
             {
-                Id = room.Id,
-                Number = room.Number,
-                RoomType = room.Type,
-                Capacity = room.Capacity,
-                Price = room.Price,
+                Room = new RoomViewModel { Id = room.Id, Number = room.Number, RoomType = room.Type,
+                    Capacity = room.Capacity,
+                    Price = room.Price
+                },
                 SelectedAmenityIds = room.Amenities.Select(a => a.Id).ToList(),
-                AllAmenities = _dbContext.Amenities.Select(a => new SelectListItem
+                AllAmenities = _amenitie.GetAll().Select(a => new SelectListItem
                 {
                     Value = a.Id.ToString(),
                     Text = a.Name,
@@ -116,7 +115,29 @@ namespace PresentationLayer.Controllers
                 })
             };
 
-            return View(viewModel)
+            return View(viewModel);
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(CreateRoomViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                var room = _roomService.GetRoomById(model.Room.Id);
+                if (room == null)
+                {
+                    return NotFound();
+                }
+                room.Number = model.Room.Number;
+                room.Price = model.Room.Price;
+                room.Capacity = model.Room.Capacity;
+                room.Type = model.Room.RoomType;
+                room.Amenities = _amenitie.GetAll().Where(a => model.SelectedAmenityIds.Contains(a.Id)).ToList();
+                _roomService.UpdateRoom(room);
+                return RedirectToAction("Index");
+            }
+            return View(model);
+        }
+
     }
 }
