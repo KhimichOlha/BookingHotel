@@ -1,0 +1,27 @@
+﻿@model GuestViewModel
+
+@{
+    ViewData["Title"] = "Деталі профілю ";
+}
+
+<div class="container">
+    <h1>Деталі профілю гостя</h1>
+
+    <div class="mt-3">
+        <dl class="row">
+            <dt class="col-sm-2">Ім'я:</dt>
+            <dd class="col-sm-10">@Model.Name</dd>
+
+            <dt class="col-sm-2">Email:</dt>
+            <dd class="col-sm-10">@Model.Email</dd>
+
+            <dt class="col-sm-2">Телефон:</dt>
+            <dd class="col-sm-10">@Model.Phone</dd>
+        </dl>
+    </div>
+
+    <div class="mt-3">
+        <a asp-action="Edit" class="btn btn-primary">Редагувати профіль</a>
+        <a asp-action="BookingHistory" asp-route-id="@Model.Id"  class="btn btn-secondary">Історія бронювань</a>
+    </div>
+</div>

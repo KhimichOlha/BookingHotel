@@ -23,9 +23,15 @@ namespace DataAccessLayer.Repositories.Servises
             _context.SaveChanges();
         }
 
+        public IEnumerable<Booking> GetAll()
+        {
+            
+            return _context.Bookings.Include(r => r.Room).Include(g => g.Guest).ToList();
+        }
+
         public IEnumerable<Booking> GetByGuestId(int guestId)
         {
-            return _context.Bookings.Where( b => b.GuestId == guestId).ToList();
+            return _context.Bookings.Include(r=> r.Room).Where( b => b.Guest.Id == guestId).ToList();
         }
 
         

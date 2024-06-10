@@ -24,7 +24,12 @@ namespace DataAccessLayer.Repositories.Servises
             _context.SaveChanges();
         }
 
-        public Guest GetById(int id)
+		public IEnumerable<Guest> GetAll()
+		{
+			return _context.Guests;
+		}
+
+		public Guest GetById(int id)
         {
             return _context.Guests.FirstOrDefault(h => h.Id == id);
         }

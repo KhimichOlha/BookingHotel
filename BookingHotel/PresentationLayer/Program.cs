@@ -1,3 +1,8 @@
+using DependencyInjectionContainer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using PresentationLayer.Context;
+using PresentationLayer.Mapper;
 namespace PresentationLayer
 {
     public class Program
@@ -8,6 +13,11 @@ namespace PresentationLayer
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            //builder.Services.AddScoped<MapModelToViewModel>();
+            builder.Services.AddHotelBookingServices(builder.Configuration);
+            builder.Services.AddAutoMapper(typeof(Program));
+            builder.Services.AddDbContext<BookingIdentityDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("IdentityConnections")));
+            builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<BookingIdentityDbContext>();
 
             var app = builder.Build();
 
@@ -28,7 +38,7 @@ namespace PresentationLayer
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Booking}/{action=Index}/{id?}");
 
             app.Run();
         }
